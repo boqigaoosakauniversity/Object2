@@ -1,6 +1,6 @@
 package cn.boqi;
 
-import org.omg.SendingContext.RunTime;
+import java.lang.Runtime;
 
 /**
  * 测试可变字符序列和不可变字符序列的常见陷阱
