@@ -1,5 +1,7 @@
 package cn.boqi;
 
+import java.util.LinkedList;
+
 /**
  * 测试包装类
  * @author g
@@ -20,5 +22,7 @@ public class TestWrappedClass {
 
         //把包装类对象转成字符串
         f.toString();
+
+        LinkedList bq = new LinkedList();
     }
 }

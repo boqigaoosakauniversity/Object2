@@ -13,12 +13,14 @@ public class TestList {
     }
 
     public static void test03(){
-        List<String> list = new ArrayList<>();
+        List<String> list = new ArrayList<>(20);
 
         list.add("A");
         list.add("B");
         list.add("C");
         list.add("D");
+        list.add(null);
+        System.out.println(list.size());
         System.out.println(list);
 
         list.add(0, "ADD");
