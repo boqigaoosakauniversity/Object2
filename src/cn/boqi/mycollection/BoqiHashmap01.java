@@ -4,9 +4,10 @@ package cn.boqi.mycollection;
  * 自定义一个hashmap
  * 01定义一些基本结构，然后定义储存对,完善put方法
  * 02版本增加toSting
+ * 03版本增加get，查找键值对
  * @author QIN SIJIA
  */
-public class BoqiHashmap01 {
+public class BoqiHashmap01 <K, V> {
 
     NodeHashMap[] table;//位桶数组，bucket array
     int size;
@@ -15,21 +16,49 @@ public class BoqiHashmap01 {
         table = new NodeHashMap[16];//长度一般定义成2的整数次幂
     }
 
+    public V get(K key){
+        int hash = myHash(key.hashCode(), table.length);
+        V value = null;
+
+        if (table[hash]!=null){
+            NodeHashMap<K,V> temp = table[hash];
+
+            while (temp!=null){
+                if (temp.key.equals(key)) {
+                    value = temp.value;
+                    break;
+                }//如果相等，则返回对应的value
+                else {
+                    temp = temp.next;
+                }
+            }
+
+        }
+
+        return value;
+    }
+
     /**
      * 把新的数据对放进哈希表
      * @param key 键值
      * @param value 数据值
      */
-    public void put(Object key, Object value){
-        NodeHashMap newNode = new NodeHashMap();
+    public void put(K key, V value){
+
+
+
+        //如果要完善，还需要考虑数组扩容的问题！！
+
+        //定义一个新的节点对象
+        NodeHashMap<K,V> newNode = new NodeHashMap();
         newNode.hash = myHash(key.hashCode(), table.length);//先计算key的哈希值，然后取模
         newNode.key = key;
         newNode.value = value;
         newNode.next = null;
 
-        NodeHashMap temp = table[newNode.hash];
+        NodeHashMap<K,V> temp = table[newNode.hash];
 
-        NodeHashMap iterLast = null;//链表中已有的最后一个元素
+        NodeHashMap<K,V> iterLast = null;//链表中已有的最后一个元素
 
         boolean keyRepeat = false;
         if(temp == null){
@@ -95,12 +124,13 @@ public class BoqiHashmap01 {
     }
 
     public static void main(String[] args) {
-        BoqiHashmap01 m = new BoqiHashmap01();
+        BoqiHashmap01<Integer, String> m = new BoqiHashmap01<>();
         m.put(421,"aa1");
         m.put(43,"aa2");
         m.put(1,"aa3");
         m.put(17, "aa4");
         m.put(17,"aaa7");
+        System.out.println(m.get(43));
 
         System.out.println(m.toString());
     }
